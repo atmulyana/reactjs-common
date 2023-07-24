@@ -1,0 +1,33 @@
+/**
+ * https://github.com/atmulyana/reactjs-common
+ * 
+ * @flow
+ */
+import * as React from 'react';
+
+/**
+ * Example usage:
+ *      type ViewProps = $Call<ExtractComponentPropsInstance, typeof View>['props'];
+ *      type ViewInstance = $Call<ExtractComponentPropsInstance, typeof View>['instance'];
+ * Then, if you want to get View style prop type
+ *      type ViewStyleProp = $NonMaybeType<ViewProps['style']>;
+ **/
+export type ExtractComponentPropsInstance = <Props, Instance>(React.AbstractComponent<Props, Instance>) => {props: Props, instance: Instance};
+
+export type Ref<Instance> = Exclude<
+    React.Ref<React.AbstractComponent<any, Instance>>,
+    number | string
+>;
+export type RefCallback<Instance> = Exclude<
+    Ref<Instance>,
+    {...}
+>;
+
+declare export function setRef<Instance>(
+    refProp: Ref<Instance>,
+    ref: Instance | null
+): void;
+declare export function extRefCallback<T, P>(
+    refProp: Ref<T>,
+    extRef: P
+): RefCallback<T>;

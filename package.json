@@ -1,0 +1,29 @@
+{
+  "name": "reactjs-common",
+  "version": "0.0.1",
+  "description": "Things common in react project",
+  "license": "MIT",
+  "repository": "https://github.com/atmulyana/reactjs-common",
+  "keywords": [
+    "react",
+    "reactjs",
+    "common",
+    "javascript"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "flow": "flow"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "javascript-common": "*"
+  },
+  "devDependencies": {
+    "flow-bin": "latest"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  }
+}
