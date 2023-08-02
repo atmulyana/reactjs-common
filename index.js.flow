@@ -14,20 +14,26 @@ import * as React from 'react';
  **/
 export type ExtractComponentPropsInstance = <Props, Instance>(React.AbstractComponent<Props, Instance>) => {props: Props, instance: Instance};
 
-export type Ref<Instance> = Exclude<
-    React.Ref<React.AbstractComponent<any, Instance>>,
-    number | string
->;
-export type RefCallback<Instance> = Exclude<
-    Ref<Instance>,
-    {...}
->;
+export type RefObject<Instance> = {current: Instance | null, ...};
+export type RefCallback<Instance> = ((Instance | null) => mixed);
+export type Ref<Instance> = RefCallback<Instance> | RefObject<Instance>;
 
 declare export function setRef<Instance>(
     refProp: Ref<Instance>,
     ref: Instance | null
 ): void;
-declare export function extRefCallback<T, P>(
-    refProp: Ref<T>,
-    extRef: P
-): RefCallback<T>;
+
+declare export const extRefCallback:
+    (
+        <T: ?{...}, P: ?{...}>(
+            refProp: Ref<{...$Exact<T>, ...$Exact<P>}>,
+            extRef: P,
+            callback?: ({...$Exact<T>, ...$Exact<P>}) => mixed,
+        ) => RefCallback<T>
+    ) & (
+            <T, P>(
+            refProp: Ref<T & P>,
+            extRef: P,
+            callback?: (T & P) => mixed,
+        ) => RefCallback<T>
+    );

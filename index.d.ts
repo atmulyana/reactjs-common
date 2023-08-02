@@ -46,6 +46,7 @@ export function setRef<Instance>(
  * @param extRef The object containing all extension properties/methods
  */
 export function extRefCallback<T, P>(
-    refProp: Ref<T>,
-    extRef: P
+    refProp: Ref<T & P>,
+    extRef: P,
+    callback?: (ref: T & P) => any
 ): React.RefCallback<T>;

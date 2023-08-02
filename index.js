@@ -2,25 +2,28 @@
  * https://github.com/atmulyana/reactjs-common
  */
 'use strict';
-import {proxyObject} from 'javascript-common';
+const {proxyObject} = require('javascript-common');
 
-export function setRef(refProp, ref) {
+function setRef(refProp, ref) {
     if (typeof(refProp) == 'function') refProp(ref);
     else if (refProp && typeof(refProp) == 'object') refProp.current = ref;
 }
 
-export function extRefCallback(refProp, extRef) {
+function extRefCallback(refProp, extRef, callback) {
     return ref => {
+        let newRef = null;
         if (ref) {
-            setRef(
-                refProp,
-                proxyObject(ref, extRef)
-                //extendObject(ref, extRef)
-            );
+            newRef = proxyObject(ref, extRef); //extendObject(ref, extRef)
         }
         else {
             //extendObject(null, extRef);
-            setRef(refProp, null);
         }
+        setRef(refProp, newRef);
+        if (typeof(callback) == 'function') callback(newRef);
     }
 }
+
+if (typeof(module) == 'object' && module) module.exports = {
+    setRef,
+    extRefCallback
+};
