@@ -16,7 +16,7 @@ export type ExtractComponentPropsInstance = <Props, Instance>(React.AbstractComp
 
 export type RefObject<Instance> = {current: Instance | null, ...};
 export type RefCallback<Instance> = ((Instance | null) => mixed);
-export type Ref<Instance> = RefCallback<Instance> | RefObject<Instance>;
+export type Ref<Instance> = RefCallback<Instance> | RefObject<Instance> | null;
 
 declare export function setRef<Instance>(
     refProp: Ref<Instance>,

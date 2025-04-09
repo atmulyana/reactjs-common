@@ -3,7 +3,7 @@
  */
 import * as React from 'react';
 
-export type Ref<T> = Exclude<React.Ref<T>, null>;
+export type Ref<T> = React.Ref<T>;
 
 /**
  * It's useful when using `React.forwarRef` and you want to set the `ref` prop to a custom object.
