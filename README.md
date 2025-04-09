@@ -57,7 +57,7 @@ Then, if you want to get View style prop type:
     type ViewStyleProp = $NonMaybeType<ViewProps['style']>;
 
 ##### `Ref<Instance>`
-It's a sub type of `React.Ref`. It defines the object type and the function type that can be set to `ref` prop.
+It's the same as `React.Ref`. It defines the object type and the function type that can be set to `ref` prop.
 
 ##### `RefCallback<Instance>`
 It's a sub type of `Ref<Instance>`. It only defines the function type that can be set to `ref` prop.
