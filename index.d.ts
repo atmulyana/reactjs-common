@@ -43,10 +43,13 @@ export function setRef<Instance>(
  *      })
  * 
  * @param refProp is `ref` prop value
- * @param extRef The object containing all extension properties/methods
+ * @param extRef is the object containing all extension properties/methods or a function that returns that object.
+ *               If it's a function then the its parameter is the original component reference object.
+ * @param callback is a function that will be called when the callback function (which is returned by `extRefCallback`)
+ *                 is called. This function has one parameter that is the `ref` object that has been extended.
  */
 export function extRefCallback<T, P>(
     refProp: Ref<T & P>,
-    extRef: P,
+    extRef: P | ((ref: T) => P),
     callback?: (ref: T & P) => any
-): React.RefCallback<T>;
+): (instance: T | null) => void;

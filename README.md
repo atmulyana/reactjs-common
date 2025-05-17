@@ -28,12 +28,13 @@ It creates a callback function that can be set to a `ref` prop. The callback fun
 reference object returned by the component.   
 Parameters:
 - `refProp` is `ref` prop value
-- `extRef` is the object containing all extension properties/methods
+- `extRef` is the object containing all extension properties/methods or a function that returns that object.
+  If it's a function then the its parameter is the original component reference object.
 - `callback` is a function that will be called when the callback function (which is returned by `extRefCallback`)
   is called. This function has one parameter that is the `ref` object that has been extended.
 
 It can be used in `React.forwardRef` like the following code:
-```
+```javascript
     const WrapperComponent = React.forwardRef((props, ref) => {
         //Some your code..
 
@@ -44,6 +45,16 @@ It can be used in `React.forwardRef` like the following code:
         return <NonFunctionComponent {...props} ref={callbackRef} />
     })
 ```
+Or if the second parameter of `callbackRef` is a function, we may utilize the basic/original `ref` in the
+extension object as the following example:
+```javascript
+    ...
+        const callbackRef = extRefCallback(ref, basicRef => ({
+            newProp: basicRef.prop ?? '', //a new prop example that needs to access the ref object of `NonFunctionComponent` 
+            //... the rest of extension properties/methods
+        }));
+    ...
+``` 
 
 ### Types for Flow
 ##### `ExtractComponentPropsInstance`

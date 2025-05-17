@@ -13,10 +13,12 @@ function extRefCallback(refProp, extRef, callback) {
     return ref => {
         let newRef = null;
         if (ref) {
-            newRef = proxyObject(ref, extRef); //extendObject(ref, extRef)
+            let $extRef = (typeof(extRef) == 'function') ? extRef(ref) : extRef;
+            newRef = proxyObject(ref, $extRef); //extendObject(ref, $extRef)
         }
         else {
-            //extendObject(null, extRef);
+            //let $extRef = (typeof(extRef) == 'function') ? extRef(null) : extRef;
+            //extendObject(null, $extRef);
         }
         setRef(refProp, newRef);
         if (typeof(callback) == 'function') callback(newRef);

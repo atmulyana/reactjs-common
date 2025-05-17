@@ -23,17 +23,17 @@ declare export function setRef<Instance>(
     ref: Instance | null
 ): void;
 
-declare export const extRefCallback:
+declare export var extRefCallback:
     (
         <T: ?{...}, P: ?{...}>(
             refProp: Ref<{...$Exact<T>, ...$Exact<P>}>,
-            extRef: P,
+            extRef: P | (T => P),
             callback?: ({...$Exact<T>, ...$Exact<P>}) => mixed,
         ) => RefCallback<T>
     ) & (
-            <T, P>(
+        <T, P>(
             refProp: Ref<T & P>,
-            extRef: P,
+            extRef: P | (T => P),
             callback?: (T & P) => mixed,
         ) => RefCallback<T>
     );
