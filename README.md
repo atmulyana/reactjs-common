@@ -56,22 +56,14 @@ extension object as the following example:
     ...
 ``` 
 
+### `forwardRef`
+It's a function which is the same as `React.forwarRef` if exists. If not exist, it's its polyfill.
+
+> `React.forwarRef` has been deprecated since React 19
+
 ### Types for Flow
-##### `ExtractComponentPropsInstance`
-Usage:
-
-    type ViewProps = $Call<ExtractComponentPropsInstance, typeof View>['props'];
-    type ViewInstance = $Call<ExtractComponentPropsInstance, typeof View>['instance'];
-
-Then, if you want to get View style prop type:
-
-    type ViewStyleProp = $NonMaybeType<ViewProps['style']>;
-
 ##### `Ref<Instance>`
-It's the same as `React.Ref`. It defines the object type and the function type that can be set to `ref` prop.
+It's the same as `React.RefSetter<Instance>`. Shorter name.
 
 ##### `RefCallback<Instance>`
-It's a sub type of `Ref<Instance>`. It only defines the function type that can be set to `ref` prop.
-
-##### `RefObject<Instance>`
-It's a sub type of `Ref<Instance>`. It only defines the object type that can be set to `ref` prop.
+It's a sub type of `React.RefSetter<Instance>`. It only defines the function type that can be set to `ref` prop.

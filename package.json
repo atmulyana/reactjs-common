@@ -1,6 +1,6 @@
 {
   "name": "reactjs-common",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Things common in react project",
   "license": "MIT",
   "repository": "https://github.com/atmulyana/reactjs-common",
@@ -29,6 +29,6 @@
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "flow-bin": "*"
+    "flow-bin": "^0.275.0"
   }
 }

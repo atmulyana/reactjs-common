@@ -53,3 +53,22 @@ export function extRefCallback<T, P>(
     extRef: P | ((ref: T) => P),
     callback?: (ref: T & P) => any
 ): (instance: T | null) => void;
+
+type ForwardedRef<T> = ((instance: T | null) => void) | RefObject<T | null> | null;
+/**
+ * It's the same as `React.forwardRef` function. 
+ */
+export function forwardRef<T, P = {}>(
+    render: {
+        (
+            props: P,
+            ref: ForwardedRef<T>
+        ): ReactNode;
+        displayName?: string | undefined;
+        propTypes?: any;
+    }
+): {
+    (props: React.PropsWithoutRef<P> & React.RefAttributes<T>): React.ReactNode;
+    displayName?: string | undefined;
+    propTypes?: any;
+}

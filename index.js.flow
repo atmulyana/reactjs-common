@@ -5,18 +5,8 @@
  */
 import * as React from 'react';
 
-/**
- * Example usage:
- *      type ViewProps = $Call<ExtractComponentPropsInstance, typeof View>['props'];
- *      type ViewInstance = $Call<ExtractComponentPropsInstance, typeof View>['instance'];
- * Then, if you want to get View style prop type
- *      type ViewStyleProp = $NonMaybeType<ViewProps['style']>;
- **/
-export type ExtractComponentPropsInstance = <Props, Instance>(React.AbstractComponent<Props, Instance>) => {props: Props, instance: Instance};
-
-export type RefObject<Instance> = {current: Instance | null, ...};
-export type RefCallback<Instance> = ((Instance | null) => mixed);
-export type Ref<Instance> = RefCallback<Instance> | RefObject<Instance> | null;
+export type Ref<T> = React.RefSetter<T>;
+export type RefCallback<T> = Exclude< Ref<T>, React.RefObject<T> >;
 
 declare export function setRef<Instance>(
     refProp: Ref<Instance>,
@@ -28,12 +18,26 @@ declare export var extRefCallback:
         <T: ?{...}, P: ?{...}>(
             refProp: Ref<{...$Exact<T>, ...$Exact<P>}>,
             extRef: P | (T => P),
-            callback?: ({...$Exact<T>, ...$Exact<P>}) => mixed,
+            callback?: ({...$Exact<T>, ...$Exact<P>}) => any,
         ) => RefCallback<T>
     ) & (
         <T, P>(
             refProp: Ref<T & P>,
             extRef: P | (T => P),
-            callback?: (T & P) => mixed,
+            callback?: (T & P) => any,
         ) => RefCallback<T>
     );
+
+declare export function forwardRef<T, P: {...} = {}>(
+    render: {
+        (
+            props: P,
+            ref: Ref<T>
+        ): React.Node;
+        displayName?: string | void;
+        propTypes?: any;
+    }
+): component(ref?: Ref<T>, ...P) & {
+    displayName?: string | void;
+    propTypes?: any;
+};
