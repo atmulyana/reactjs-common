@@ -2,6 +2,7 @@
   "name": "reactjs-common",
   "version": "0.2.1",
   "description": "Things common in react project",
+  "author": "AT Mulyana <atmulyana@yahoo.com>",
   "license": "MIT",
   "repository": "https://github.com/atmulyana/reactjs-common",
   "keywords": [
